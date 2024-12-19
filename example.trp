@@ -1,0 +1,30 @@
+Hello, this is a file to test out TV Tropes's markup format. Information is taken from Administrivia/TextFormattingRules. Outdated formatting will not be considered.
+
+The last word of this sentence is a %comment%
+
+%% This entire line is a comment
+
+! Level 1 Heading
+!! Level 2 Heading
+!!! Level 3 Heading
+
+Start with a horizontal line
+
+---
+
+* Bullet lists can start with asterisks
++ But can also use plus signs
+** Multiple of the same type leads to indendation. 
++++ Indentation beyond the third-level is against the rules
+
+This is ''italic'', this is '''bold''', and this is @@monospace@@. The size of text can also be [[--reduced--]]. However, [=EscapeSequence=] means the inside is not interpreted.
+
+[=CamelCase=] is usually some sort of Administrivia/WikiWord to be linked to. The {{Plot}} is a wikiword with only one work, but the curly braces make it work.
+
+Many text formatting features use square brackets as well, such as [[spoiler:spoilers]], colors like [[red: Red]], [[VideoGames piped internal links]], [[https://example.com/ piped external links]]. You can also link domains like Test.{{Trope}}. Another example of this is [=[[redirect:VideoGames=], but actually doing this is probably good in a sandbox.
+
+A lot of things seem to follow this format, like [[subscript: subscript]]. Perhaps they ca be generalized.
+
+A [[note]] can hide text [[/note]], but only a [[labelnote: Label Note]] can change what the outside looks like [[/labelnote]]. Make sure it's closed!
+
+In just the forums, [[quoteblock]] a quoteblock does quotes [[/quoteblock]].
