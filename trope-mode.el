@@ -29,6 +29,30 @@
 
 ;;; Code:
 
+;;; Syntax Table
+(defconst trope-mode-syntax-table
+  (let ((table (make-syntax-table)))
+    ;; % both begins and ends comments by itself, and two starts a comment
+    (modify-syntax-entry ?% "! 12" table)
+    ;; newline ends a comment
+    (modify-syntax-entry ?\n ">" table)
+
+    ;; Return Syntax Table
+    table)
+  )
+
+;;; Exposed Functionality
+
+;;;###autoload
+(define-derived-mode trope-mode
+  text-mode "TV Tropes markup mode"
+  "Major mode for the TV Tropes formatting language."
+  :syntax-table trope-mode-syntax-table
+  (font-lock-fontify-buffer)
+  )
+
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.\\(?:trp\\|trope\\)". trope-mode))
 
 (provide 'trope-mode)
 
