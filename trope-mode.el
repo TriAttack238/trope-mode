@@ -1,7 +1,7 @@
 ;;; trope-mode.el --- Major mode to edit TV Tropes format ".trp" files -*- lexical-binding:t -*-
 
 ;; Copyright (C) 2024 Sean Vo
-;; Author: Sean Vo <triattack238@gmal.com>
+;; Author: Sean Vo <triattack238@gmail.com>
 ;; Version: 0.0.1
 ;; Created: 18 Dec 2024
 ;; package-requires ((emacs "29.1"))
