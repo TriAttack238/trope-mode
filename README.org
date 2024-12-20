@@ -1,7 +1,7 @@
 * Trope-Mode
 
 A major mode for writing the unnamed markup language used for the
-website [[TV Tropes][https://tvtropes.org/]], which should be put in
+website [[https://tvtropes.org/][TV Tropes]], which should be put in
 ".trp" files. This package aims to be fast, use as little dependencies
 as possible, and to make it easier to write pages for the website, not
 to use as a standalone markup format.
