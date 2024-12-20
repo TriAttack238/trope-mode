@@ -28,3 +28,8 @@ A lot of things seem to follow this format, like [[subscript: subscript]]. Perha
 A [[note]] can hide text [[/note]], but only a [[labelnote: Label Note]] can change what the outside looks like [[/labelnote]]. Make sure it's closed!
 
 In just the forums, [[quoteblock]] a quoteblock does quotes [[/quoteblock]].
+
+Of course, don't forget about folders.
+[[folder: open]]
+Surprise inside!
+[[/folder]]
