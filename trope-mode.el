@@ -29,6 +29,16 @@
 
 ;;; Code:
 
+(require 'rx)
+
+;;; Configuration
+
+
+;;; Constants
+
+(defconst trope-mode-version "0.0.1"
+  "TV Tropes mode version number.")
+
 ;;; Syntax Table
 (defconst trope-mode-syntax-table
   (let ((table (make-syntax-table)))
@@ -41,9 +51,48 @@
     table)
   )
 
-;;; Add specific keywords for page elements
+;; Add specific font face for headings (!, !!, and !!!)
+
+;; Create custom faces for headings
+
+(defface trope-mode-header-face-base
+  '((t :inherit font-lock-function-name-face :foreground "firebrick" :weight extra-bold))
+  "Base face for headers."
+  :group 'trope-mode
+  )
+
+;; Add faces to regular expressions
+;; TODO: give each header level its own face at compile time
+
+(add-hook 'trope-mode-hook
+	  (lambda ()
+	    (font-lock-add-keywords nil
+				    '(("^!\\{1,3\\}.+$" . 'trope-mode-header-face-base))
+				    
+	      )
+	    )
+	  )
 
 
+
+;;; Add specific font face for notes, quotes, and folders
+
+(defface trope-mode-label-face-base
+  '((t :inherit font-lock-function-name-face :foreground "dark cyan" :weight extra-bold))
+  "Base face for headers."
+  :group 'trope-mode
+  )
+
+;; Add faces to regular expressions
+
+(add-hook 'trope-mode-hook
+	  (lambda ()
+	    (font-lock-add-keywords nil
+				    '(("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base))
+				    
+	      )
+	    )
+	  )
 
 ;;; Exposed Functionality
 
