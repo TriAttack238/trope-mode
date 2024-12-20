@@ -41,11 +41,15 @@
     table)
   )
 
+;;; Add specific keywords for page elements
+
+
+
 ;;; Exposed Functionality
 
 ;;;###autoload
 (define-derived-mode trope-mode
-  text-mode "TV Tropes markup mode"
+  text-mode "Trope Mode"
   "Major mode for the TV Tropes formatting language."
   :syntax-table trope-mode-syntax-table
   (font-lock-fontify-buffer)
