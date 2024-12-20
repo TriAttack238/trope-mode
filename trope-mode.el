@@ -68,10 +68,6 @@
 	    )
 	  )
 
-;; Apply font faces for emphasis (''italic'', '''bold''', @@monospace@@)
-
-
-
 ;; Add specific font face for headings (!, !!, and !!!)
 
 ;; Create custom faces for headings
@@ -147,7 +143,26 @@
 	    )
 	  )
 
+;; Apply font faces for emphasis (''italic'', '''bold''', @@monospace@@)
+(add-hook 'trope-mode-hook
+	  (lambda ()
+	    (font-lock-add-keywords nil
+				    '(
 
+				      ;; @@monospace@@
+				      ("@\\{2\\}.*@\\{2\\}" 0 'fixed-pitch append)
+
+				      ;; ''Italic''
+				      ("\\b'\\{2\\}.*'\\{2\\}\\b" 0 'italic append)
+				      
+				      ;; '''Bold'''
+				      ("'\\{3\\}[^']*'\\{3\\}" 0 'bold append)
+
+				      )
+				    )
+
+	    )
+	  )
 
 ;;; Exposed Functionality
 
