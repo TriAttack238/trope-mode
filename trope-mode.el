@@ -47,9 +47,30 @@
     ;; newline ends a comment
     (modify-syntax-entry ?\n ">" table)
 
+    
+
     ;; Return Syntax Table
     table)
   )
+
+;;; Font Locking
+
+;; Apply deafult face for any text between escape characters
+
+(add-hook 'trope-mode-hook
+	  (lambda ()
+	    (font-lock-add-keywords nil
+				    '(
+				      ;; Any text between [=this escape sequence=] on the same line. The "t" makes sure it overrides other keywords.
+				      ("\\[=.*=\\]" 0 'default t)
+				      )
+				    )
+	    )
+	  )
+
+;; Apply font faces for emphasis (''italic'', '''bold''', @@monospace@@)
+
+
 
 ;; Add specific font face for headings (!, !!, and !!!)
 
@@ -74,8 +95,36 @@
 	  )
 
 
+;; Add specific font face for PotHoles and links
 
-;;; Add specific font face for notes, quotes, and folders
+(defface trope-mode-link-face
+  '((t :inherit font-lock-function-call-face :foreground "deep sky blue"))
+  "Face for Potholes and links"
+  :group 'trope-mode
+  )
+
+;;Add faces to regular expressions
+;;Note: The regular expression for CamelCase is "\\([[:upper:]][a-z]+\\)\\{2\\}"
+
+(add-hook 'trope-mode-hook
+	  (lambda ()
+	    (font-lock-add-keywords nil
+				    '(
+				      ;; Pothole and external link
+				      ("\\[\\{2\\}\\([[:alpha:]]+\\|http[s]?:.*\\) \\(?:[[:alpha:]]\\|[[:blank:]]\\)+\\]\\{2\\}" . 'trope-mode-link-face)
+
+				      ;; Internal Wikiword Link with CamelCase
+				      ("\\(\\([[:upper:]][a-z]+\\)+/\\)?\\([[:upper:]][a-z]+\\)\\{2\\}" . 'trope-mode-link-face)
+
+				      ;; Internal Wikiword Link with {{Bracket}}
+				      ("\\(\\([[:upper:]][a-z]+\\)\\{2\\}\\)?{\\{2\\}\\([[:upper:]][a-z]+\\)?}\\{2\\}" . 'trope-mode-link-face)  
+				      )
+				    
+	      )
+	    )
+	  )
+
+;; Add specific font face for notes, quotes, and folders
 
 (defface trope-mode-label-face-base
   '((t :inherit font-lock-function-name-face :foreground "dark cyan" :weight extra-bold))
@@ -88,11 +137,17 @@
 (add-hook 'trope-mode-hook
 	  (lambda ()
 	    (font-lock-add-keywords nil
-				    '(("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base))
+				    '(
+				      ;; Notes, quoteblocks, folders
+				      ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base)
+
+				      )
 				    
 	      )
 	    )
 	  )
+
+
 
 ;;; Exposed Functionality
 
@@ -100,9 +155,10 @@
 (define-derived-mode trope-mode
   text-mode "Trope Mode"
   "Major mode for the TV Tropes formatting language."
-  :syntax-table trope-mode-syntax-table
+  (setq-local case-fold-search nil)
   (font-lock-fontify-buffer)
-  )
+  :syntax-table trope-mode-syntax-table
+)
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.\\(?:trp\\|trope\\)". trope-mode))
