@@ -21,9 +21,12 @@ This is ''italic'', this is '''bold''', and this is @@monospace@@. The size of t
 
 [=CamelCase=] is usually some sort of Administrivia/WikiWord to be linked to. The {{Plot}} is a wikiword with only one work, but the curly braces make it work.
 
-Many text formatting features use square brackets as well, such as [[spoiler:spoilers]], colors like [[red: Red]], [[VideoGames piped internal links]], [[https://example.com/ piped external links]]. You can also link domains like Test.{{Trope}}. Another example of this is [=[[redirect:VideoGames=], but actually doing this is probably good in a sandbox.
+Many text formatting features use square brackets as well, such as
+[[spoiler:spoilers]], colors like [[red: Red]], [[VideoGames piped internal links]], [[https://example.com/ piped external links]]. You
+can also link domains like Test.{{Trope}} or Main/VideoGames. Another example of this is [=[[redirect:VideoGames=], but actually doing this is probably good in a sandbox.
 
-A lot of things seem to follow this format, like [[subscript: subscript]]. Perhaps they ca be generalized.
+A lot of things seem to follow this format, like [[subscript:subscript]]. Perhaps they can be generalized.
+
 
 A [[note]] can hide text [[/note]], but only a [[labelnote: Label Note]] can change what the outside looks like [[/labelnote]]. Make sure it's closed!
 
