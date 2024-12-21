@@ -113,7 +113,7 @@
 				      ("\\(\\([[:upper:]][a-z]+\\)+/\\)?\\([[:upper:]][a-z]+\\)\\{2,\\}" . 'trope-mode-link-face)
 
 				      ;; Internal Wikiword Link with {{Bracket}}
-				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\){\\{2\\}\\([[:upper:]][a-z]+\\)?}\\{2\\}" . 'trope-mode-link-face)  
+				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:upper:]][a-z]+\\)?}\\{2\\}" . 'trope-mode-link-face)  
 				      )
 				    
 	      )
