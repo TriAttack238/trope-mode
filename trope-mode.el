@@ -110,10 +110,10 @@
 				      ("\\[\\{2\\}\\([[:alpha:]]+\\|http[s]?:.*\\) \\(?:[[:alpha:]]\\|[[:blank:]]\\)+\\]\\{2\\}" . 'trope-mode-link-face)
 
 				      ;; Internal Wikiword Link with CamelCase
-				      ("\\(\\([[:upper:]][a-z]+\\)+/\\)?\\([[:upper:]][a-z]+\\)\\{2\\}" . 'trope-mode-link-face)
+				      ("\\(\\([[:upper:]][a-z]+\\)+/\\)?\\([[:upper:]][a-z]+\\)\\{2,\\}" . 'trope-mode-link-face)
 
 				      ;; Internal Wikiword Link with {{Bracket}}
-				      ("\\(\\([[:upper:]][a-z]+\\)\\{2\\}\\)?{\\{2\\}\\([[:upper:]][a-z]+\\)?}\\{2\\}" . 'trope-mode-link-face)  
+				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\){\\{2\\}\\([[:upper:]][a-z]+\\)?}\\{2\\}" . 'trope-mode-link-face)  
 				      )
 				    
 	      )
@@ -135,7 +135,7 @@
 	    (font-lock-add-keywords nil
 				    '(
 				      ;; Notes, quoteblocks, folders
-				      ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base)
+				      ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|index\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base)
 
 				      )
 				    
