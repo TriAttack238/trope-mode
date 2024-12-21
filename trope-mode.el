@@ -135,7 +135,7 @@
 	    (font-lock-add-keywords nil
 				    '(
 				      ;; Notes, quoteblocks, folders
-				      ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base)
+				      ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|index\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base)
 
 				      )
 				    
