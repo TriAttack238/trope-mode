@@ -34,6 +34,7 @@
 ;;; Configuration
 
 
+
 ;;; Constants
 
 (defconst trope-mode-version "0.0.1"
@@ -47,11 +48,59 @@
     ;; newline ends a comment
     (modify-syntax-entry ?\n ">" table)
 
-    
-
     ;; Return Syntax Table
     table)
   )
+
+;;; Text Manipulation
+
+;; Emphasis
+(defun trope-mode-add-to-region (start end char repeat)
+  "Insert CHAR on either side of the region defined by START and END.
+If REPEAT is greater than 1, add the character multiple times.
+Assumes that START is less than END"
+  (save-excursion
+    (progn
+      (goto-char start)
+      (insert-char char repeat t)
+      (goto-char end)
+      (insert-char char repeat t)
+      )
+    )
+  )
+
+(defun trope-mode-italicize-region (start end)
+  "Italicize the selected region.
+Meant to be used interactively, or assuming that START is less than END."
+  (interactive "*r")
+  (let ((char-to-add ?')
+	(times 2))
+    (trope-mode-add-to-region start end char-to-add times)
+    )
+  )
+
+(defun trope-mode-monospace-region (start end)
+  "Monospace the selected region.
+Meant to be used interactively, or assuming that START is less than END."
+  (interactive "*r")
+  (let ((char-to-add ?@)
+	(times 2))
+    (trope-mode-add-to-region start end char-to-add times)
+    )
+  )
+
+(defun trope-mode-bold-region (start end)
+  "Bold the selected region.
+Meant to be used interactively, or assuming that START is less than END."
+  (interactive "*r")
+  (let ((char-to-add ?')
+	(times 3))
+    (trope-mode-add-to-region start end char-to-add times)
+    )
+  )
+
+
+
 
 ;;; Font Locking
 
