@@ -202,7 +202,7 @@ Meant to be used interactively, or assuming that START is less than END."
 				      ("@\\{2\\}.*@\\{2\\}" 0 'fixed-pitch append)
 
 				      ;; ''Italic''
-				      ("\\b'\\{2\\}.*'\\{2\\}\\b" 0 'italic append)
+				      ("\\b'\\{2\\}\\('''\\)?[[:alpha:]]*\\('''\\)?'\\{2\\}\\b" 0 'italic append)
 				      
 				      ;; '''Bold'''
 				      ("'\\{3\\}[^']*'\\{3\\}" 0 'bold append)
