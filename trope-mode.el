@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2024 Sean Vo
 ;; Author: Sean Vo <triattack238@gmail.com>
-;; Version: 0.0.1
+;; Version: 0.1.0
 ;; Created: 18 Dec 2024
 ;; package-requires ((emacs "29.1"))
 ;; Keywords: TV Tropes, trope
@@ -37,7 +37,7 @@
 
 ;;; Constants
 
-(defconst trope-mode-version "0.0.1"
+(defconst trope-mode-version "0.1.0"
   "TV Tropes mode version number.")
 
 ;;; Syntax Table
