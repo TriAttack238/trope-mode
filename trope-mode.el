@@ -78,9 +78,9 @@ If REPEAT is greater than 1, add the character multiple times.
 Assumes that START is less than END."
   (save-excursion
     (progn
-      (goto-char start)
-      (insert-char char repeat t)
       (goto-char end)
+      (insert-char char repeat t)
+      (goto-char start)
       (insert-char char repeat t)
       )
     )
