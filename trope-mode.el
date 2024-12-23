@@ -99,7 +99,52 @@ Meant to be used interactively, or assuming that START is less than END."
     )
   )
 
+;; Insert text constructs for labels (notes, labelnotes, quoteblocks, folders)
 
+(defun trope-mode-create-label (type name seperator)
+  "Add boxed label construct with a [beginning] and [/ending] in the current buffer.
+
+Meant as a helper function to create labels depending on the value of the string TYPE (note, folder, ect.). If the string is not nil, add ':NAME' to the beginning label. The SEPERATOR character is printed twice between the beginning and end."
+  (save-excursion ;;Should the point stay at its original position?
+    (let ((start-block)
+	  (name-inner)
+	  (end-block)
+	  (result)
+	  )
+      (setq name-inner (when name
+			(concat ":" name)
+			))
+      (setq start-block (concat "[[" type name-inner "]]"))
+      (setq end-block (concat "[[/" type "]]"))
+      (insert (concat start-block (make-string 2 seperator) end-block))
+      )
+    )
+  )
+
+(defun trope-mode-create-note ()
+  "Create a beginning and end note block after the point seperated by 2 spaces."
+  (interactive)
+  (trope-mode-create-label "note" nil ?\s)
+  )
+
+(defun trope-mode-create-labelnote (name)
+  "Create a beginning and end labelnote block after the point seperated by 2 spaces with NAME."
+  (interactive "sName of labelnote: ")
+  (trope-mode-create-label "labelnote" name ?\s)
+  )
+
+(defun trope-mode-create-quoteblock ()
+  "Create a beginning and end labelnote block after the point seperated by 2 spaces.
+Quote blocks only render on the TV Tropes forums, not the main wiki."
+  (interactive)
+  (trope-mode-create-label "quoteblock" nil ?\s)
+  )
+
+(defun trope-mode-create-folder (name)
+  "Create a beginning and end folder block after the point seperated by 2 newlines with NAME."
+  (interactive "sName of folder: ")
+  (trope-mode-create-label "folder" name ?\n)
+  )
 
 
 ;;; Font Locking
