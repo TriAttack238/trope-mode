@@ -6,7 +6,7 @@ website [[https://tvtropes.org/][TV Tropes]], which should be put in
 as possible, and to make it easier to write pages for the website, not
 to use as a standalone markup format.
 
-[[file:assets/Trope-mode-demo.gif]]
+[[./assets/Trope-Mode-demo.gif]]
 
 ** Installation
 
