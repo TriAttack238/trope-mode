@@ -218,13 +218,13 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 	    (font-lock-add-keywords nil
 				    '(
 				      ;; Pothole and external link
-				      ("\\[\\{2\\}\\([[:alpha:]]+\\|http[s]?:.*\\) \\(?:[[:alpha:]]\\|[[:blank:]]\\)+\\]\\{2\\}" . 'trope-mode-link-face)
+				      ("\\[\\{2\\}\\(\\([[:alpha:]]\\|/\\|{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}\\)+\\|http[s]?:.*\\) \\(?:[[:alpha:]]\\|[[:blank:]]\\)+\\]\\{2\\}" . 'trope-mode-link-face)
 
 				      ;; Internal Wikiword Link with CamelCase
 				      ("\\(\\([[:upper:]][a-z]+\\)+/\\)?\\([[:upper:]][a-z]+\\)\\{2,\\}" . 'trope-mode-link-face)
 
 				      ;; Internal Wikiword Link with {{Bracket}}
-				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:upper:]][a-z]+\\)?}\\{2\\}" . 'trope-mode-link-face)  
+				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}" . 'trope-mode-link-face)  
 				      )
 				    
 	      )
