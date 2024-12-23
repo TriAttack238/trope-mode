@@ -6,6 +6,8 @@ website [[https://tvtropes.org/][TV Tropes]], which should be put in
 as possible, and to make it easier to write pages for the website, not
 to use as a standalone markup format.
 
+[[./assets/Trope-Mode-demo.gif]]
+
 ** Installation
 
 Currently, this package is not in any centralized repository, although
@@ -21,3 +23,20 @@ add this code:
 #+END_SRC
 
 The path should be to the project folder, not the file ~trope-mode.el~.
+
+** Functions
+
+Besides font-locking, this package also provides functions and
+keybindings to speed up writing.
+
+| Function                     | Keybinding | Definition                |
+|------------------------------+------------+---------------------------|
+| trope-mode-italicize-region  | C-c ; i    | Italicize selected region |
+| trope-mode-bold-region       | C-c ; b    | Bold selected region      |
+| trope-mode-monospace-region  | C-c ; m    | Monospace selected region |
+| trope-mode-create-folder     | C-c ' f    | Create a folder           |
+| trope-mode-create-note       | C-c ' n    | Create a note             |
+| trope-mode-create-quoteblock | C-c ' q    | Create a quote block      |
+| trope-mode-create-labelnote  | C-c ' l    | Create a labelnote        |
+
+
