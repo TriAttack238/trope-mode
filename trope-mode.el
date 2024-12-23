@@ -52,13 +52,30 @@
     table)
   )
 
+;;; Key Maps
+
+;; KeyMap for trope-mode
+(defvar-keymap trope-mode-keymap
+  :parent text-mode-map
+  :doc "Keymap for Tv Tropes markup text mode"
+  
+  "C-c ; i" #'trope-mode-italicize-region
+  "C-c ; b" #'trope-mode-bold-region
+  "C-c ; m" #'trope-mode-monospace-region
+
+  "C-c ' f" #'trope-mode-create-folder
+  "C-c ' n" #'trope-mode-create-note
+  "C-c ' q" #'trope-mode-create-quoteblock
+  "C-c ' l" #'trope-mode-create-labelnote
+  )
+
 ;;; Text Manipulation
 
 ;; Emphasis
 (defun trope-mode-add-to-region (start end char repeat)
   "Insert CHAR on either side of the region defined by START and END.
 If REPEAT is greater than 1, add the character multiple times.
-Assumes that START is less than END"
+Assumes that START is less than END."
   (save-excursion
     (progn
       (goto-char start)
@@ -266,6 +283,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   "Major mode for the TV Tropes formatting language."
   (setq-local case-fold-search nil)
   (font-lock-fontify-buffer)
+  (use-local-map trope-mode-keymap)
   :syntax-table trope-mode-syntax-table
 )
 
