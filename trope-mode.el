@@ -184,7 +184,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 ;; Create custom faces for headings
 
 (defface trope-mode-header-face-base
-  '((t :inherit font-lock-function-name-face :foreground "firebrick" :weight extra-bold))
+  '((t :foreground "firebrick" :weight extra-bold))
   "Base face for headers."
   :group 'trope-mode
   )
@@ -205,7 +205,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 ;; Add specific font face for PotHoles and links
 
 (defface trope-mode-link-face
-  '((t :inherit font-lock-function-call-face :foreground "deep sky blue"))
+  '((t :inherit button))
   "Face for Potholes and links"
   :group 'trope-mode
   )
@@ -234,7 +234,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 ;; Add specific font face for notes, quotes, and folders
 
 (defface trope-mode-label-face-base
-  '((t :inherit font-lock-function-name-face :foreground "dark cyan" :weight extra-bold))
+  '((t :foreground "dark cyan" :weight bold))
   "Base face for headers."
   :group 'trope-mode
   )
