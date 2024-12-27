@@ -17,8 +17,9 @@ add this code:
 
 #+BEGIN_SRC emacs-lisp
 
- (add-to-list 'load-path "path/to/trope-mode")
- (require 'trope-mode)
+  (add-to-list 'load-path "path/to/trope-mode")
+  (require 'trope-mode)
+  (add-to-list 'auto-mode-alist '("\\.\\(?:trp\\|trope\\)". trope-mode))
 
 #+END_SRC
 

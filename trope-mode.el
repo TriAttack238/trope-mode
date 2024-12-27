@@ -287,9 +287,6 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   :syntax-table trope-mode-syntax-table
 )
 
-;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.\\(?:trp\\|trope\\)". trope-mode))
-
 (provide 'trope-mode)
 
 ;;; trope-mode.el ends here
