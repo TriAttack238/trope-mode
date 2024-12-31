@@ -4,7 +4,7 @@
 ;; Author: Sean Vo <triattack238@gmail.com>
 ;; Version: 0.1.0
 ;; Created: 18 Dec 2024
-;; package-requires ((emacs "29.1"))
+;; Package-Requires: ((emacs "29.1"))
 ;; Keywords: TV Tropes, trope
 ;; URL: https://github.com/TriAttack238/trope-mode
 
@@ -31,6 +31,7 @@
 
 (require 'rx)
 
+
 ;;; Configuration
 
 
@@ -49,8 +50,7 @@
     (modify-syntax-entry ?\n ">" table)
 
     ;; Return Syntax Table
-    table)
-  )
+    table))
 
 ;;; Key Maps
 
@@ -66,8 +66,7 @@
   "C-c ' f" #'trope-mode-create-folder
   "C-c ' n" #'trope-mode-create-note
   "C-c ' q" #'trope-mode-create-quoteblock
-  "C-c ' l" #'trope-mode-create-labelnote
-  )
+  "C-c ' l" #'trope-mode-create-labelnote)
 
 ;;; Text Manipulation
 
@@ -81,10 +80,7 @@ Assumes that START is less than END."
       (goto-char end)
       (insert-char char repeat t)
       (goto-char start)
-      (insert-char char repeat t)
-      )
-    )
-  )
+      (insert-char char repeat t))))
 
 (defun trope-mode-italicize-region (start end)
   "Italicize the selected region.
@@ -92,9 +88,7 @@ Meant to be used interactively, or assuming that START is less than END."
   (interactive "*r")
   (let ((char-to-add ?')
 	(times 2))
-    (trope-mode-add-to-region start end char-to-add times)
-    )
-  )
+    (trope-mode-add-to-region start end char-to-add times)))
 
 (defun trope-mode-monospace-region (start end)
   "Monospace the selected region.
@@ -102,9 +96,7 @@ Meant to be used interactively, or assuming that START is less than END."
   (interactive "*r")
   (let ((char-to-add ?@)
 	(times 2))
-    (trope-mode-add-to-region start end char-to-add times)
-    )
-  )
+    (trope-mode-add-to-region start end char-to-add times)))
 
 (defun trope-mode-bold-region (start end)
   "Bold the selected region.
@@ -112,9 +104,7 @@ Meant to be used interactively, or assuming that START is less than END."
   (interactive "*r")
   (let ((char-to-add ?')
 	(times 3))
-    (trope-mode-add-to-region start end char-to-add times)
-    )
-  )
+    (trope-mode-add-to-region start end char-to-add times)))
 
 ;; Insert text constructs for labels (notes, labelnotes, quoteblocks, folders)
 
@@ -133,35 +123,28 @@ Meant as a helper function to create labels depending on the value of the string
 			))
       (setq start-block (concat "[[" type name-inner "]]"))
       (setq end-block (concat "[[/" type "]]"))
-      (insert (concat start-block (make-string 2 seperator) end-block))
-      )
-    )
-  )
+      (insert (concat start-block (make-string 2 seperator) end-block)))))
 
 (defun trope-mode-create-note ()
   "Create a beginning and end note block after the point seperated by 2 spaces."
   (interactive "*")
-  (trope-mode-create-label "note" nil ?\s)
-  )
+  (trope-mode-create-label "note" nil ?\s))
 
 (defun trope-mode-create-labelnote (name)
-  "Create a beginning and end labelnote block after the point seperated by 2 spaces with NAME."
+  "Create a beginning and end labelnote block with NAME after the point."
   (interactive "*sName of labelnote: ")
-  (trope-mode-create-label "labelnote" name ?\s)
-  )
+  (trope-mode-create-label "labelnote" name ?\s))
 
 (defun trope-mode-create-quoteblock ()
   "Create a beginning and end labelnote block after the point.
 Quote blocks only render on the TV Tropes forums, not the main wiki."
   (interactive "*")
-  (trope-mode-create-label "quoteblock" nil ?\s)
-  )
+  (trope-mode-create-label "quoteblock" nil ?\s))
 
 (defun trope-mode-create-folder (name)
-  "Create a beginning and end folder block after the point seperated by 2 newlines with NAME."
+  "Create a beginning and end folder block after the point with NAME."
   (interactive "*sName of folder: ")
-  (trope-mode-create-label "folder" name ?\n)
-  )
+  (trope-mode-create-label "folder" name ?\n))
 
 
 ;;; Font Locking
@@ -186,8 +169,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 (defface trope-mode-header-face-base
   '((t :foreground "firebrick" :weight extra-bold))
   "Base face for headers."
-  :group 'trope-mode
-  )
+  :group 'trope-mode)
 
 ;; Add faces to regular expressions
 ;; TODO: give each header level its own face at compile time
@@ -195,11 +177,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 (add-hook 'trope-mode-hook
 	  (lambda ()
 	    (font-lock-add-keywords nil
-				    '(("^!\\{1,3\\}.+$" . 'trope-mode-header-face-base))
-				    
-	      )
-	    )
-	  )
+				    '(("^!\\{1,3\\}.+$" . 'trope-mode-header-face-base)))))
 
 
 ;; Add specific font face for PotHoles and links
@@ -207,8 +185,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 (defface trope-mode-link-face
   '((t :inherit button))
   "Face for Potholes and links."
-  :group 'trope-mode
-  )
+  :group 'trope-mode)
 
 ;;Add faces to regular expressions
 ;;Note: The regular expression for CamelCase is "\\([[:upper:]][a-z]+\\)\\{2\\}"
@@ -225,19 +202,14 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 
 				      ;; Internal Wikiword Link with {{Bracket}}
 				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}" . 'trope-mode-link-face)
-				      )
-				    
-	      )
-	    )
-	  )
+				      ))))
 
 ;; Add specific font face for notes, quotes, and folders
 
 (defface trope-mode-label-face-base
   '((t :foreground "dark cyan" :weight bold))
   "Base face for headers."
-  :group 'trope-mode
-  )
+  :group 'trope-mode)
 
 ;; Add faces to regular expressions
 
@@ -248,11 +220,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 				      ;; Notes, quoteblocks, folders
 				      ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|index\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base)
 
-				      )
-				    
-	      )
-	    )
-	  )
+				      ))))
 
 ;; Apply font faces for emphasis (''italic'', '''bold''', @@monospace@@)
 (add-hook 'trope-mode-hook
@@ -267,13 +235,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 				      ("\\b'\\{2\\}\\('''\\)?[^']*\\('''\\)?'\\{2\\}\\b" 0 'italic append)
 				      
 				      ;; '''Bold'''
-				      ("'\\{3\\}[^']*'\\{3\\}" 0 'bold append)
-
-				      )
-				    )
-
-	    )
-	  )
+				      ("'\\{3\\}[^']*'\\{3\\}" 0 'bold append)))))
 
 ;;; Exposed Functionality
 
@@ -284,8 +246,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   (setq-local case-fold-search nil)
   (font-lock-ensure)
   (use-local-map trope-mode-keymap)
-  :syntax-table trope-mode-syntax-table
-)
+  :syntax-table trope-mode-syntax-table)
 
 (provide 'trope-mode)
 
