@@ -119,14 +119,14 @@ Meant to be used interactively, or assuming that START is less than END."
 ;; Insert text constructs for labels (notes, labelnotes, quoteblocks, folders)
 
 (defun trope-mode-create-label (type name seperator)
-  "Add boxed label construct with a [beginning] and [/ending] in the current buffer.
+  "Add boxed label construct in the current buffer.
 
-Meant as a helper function to create labels depending on the value of the string TYPE (note, folder, ect.). If the string is not nil, add ':NAME' to the beginning label. The SEPERATOR character is printed twice between the beginning and end."
+Meant as a helper function to create labels depending on the value of the string TYPE (note, folder, ect.).  If the string is not nil, add ':NAME' to the beginning label.  The SEPERATOR character is printed twice between the beginning and end."
   (save-excursion ;;Should the point stay at its original position?
     (let ((start-block)
 	  (name-inner)
 	  (end-block)
-	  (result)
+	  
 	  )
       (setq name-inner (when name
 			(concat ":" name)
@@ -151,7 +151,7 @@ Meant as a helper function to create labels depending on the value of the string
   )
 
 (defun trope-mode-create-quoteblock ()
-  "Create a beginning and end labelnote block after the point seperated by 2 spaces.
+  "Create a beginning and end labelnote block after the point.
 Quote blocks only render on the TV Tropes forums, not the main wiki."
   (interactive "*")
   (trope-mode-create-label "quoteblock" nil ?\s)
@@ -184,7 +184,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 ;; Create custom faces for headings
 
 (defface trope-mode-header-face-base
-  '((t :inherit font-lock-function-name-face :foreground "firebrick" :weight extra-bold))
+  '((t :foreground "firebrick" :weight extra-bold))
   "Base face for headers."
   :group 'trope-mode
   )
@@ -205,8 +205,8 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 ;; Add specific font face for PotHoles and links
 
 (defface trope-mode-link-face
-  '((t :inherit font-lock-function-call-face :foreground "deep sky blue"))
-  "Face for Potholes and links"
+  '((t :inherit button))
+  "Face for Potholes and links."
   :group 'trope-mode
   )
 
@@ -224,7 +224,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 				      ("\\(\\([[:upper:]][a-z]+\\)+/\\)?\\([[:upper:]][a-z]+\\)\\{2,\\}" . 'trope-mode-link-face)
 
 				      ;; Internal Wikiword Link with {{Bracket}}
-				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}" . 'trope-mode-link-face)  
+				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}" . 'trope-mode-link-face)
 				      )
 				    
 	      )
@@ -234,7 +234,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 ;; Add specific font face for notes, quotes, and folders
 
 (defface trope-mode-label-face-base
-  '((t :inherit font-lock-function-name-face :foreground "dark cyan" :weight extra-bold))
+  '((t :foreground "dark cyan" :weight bold))
   "Base face for headers."
   :group 'trope-mode
   )
@@ -282,13 +282,10 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   text-mode "Trope Mode"
   "Major mode for the TV Tropes formatting language."
   (setq-local case-fold-search nil)
-  (font-lock-fontify-buffer)
+  (font-lock-ensure)
   (use-local-map trope-mode-keymap)
   :syntax-table trope-mode-syntax-table
 )
-
-;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.\\(?:trp\\|trope\\)". trope-mode))
 
 (provide 'trope-mode)
 
