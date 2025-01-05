@@ -5,7 +5,7 @@
 ;; Version: 0.1.0
 ;; Created: 18 Dec 2024
 ;; Package-Requires: ((emacs "29.1"))
-;; Keywords: TV Tropes, trope
+;; Keywords: TV Tropes, trope, wp
 ;; URL: https://github.com/TriAttack238/trope-mode
 
 ;; This file is not a part of GNU Emacs
