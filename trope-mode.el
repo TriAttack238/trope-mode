@@ -115,12 +115,9 @@ Meant as a helper function to create labels depending on the value of the string
   (save-excursion ;;Should the point stay at its original position?
     (let ((start-block)
 	  (name-inner)
-	  (end-block)
-	  
-	  )
+	  (end-block))
       (setq name-inner (when name
-			(concat ":" name)
-			))
+			(concat ":" name)))
       (setq start-block (concat "[[" type name-inner "]]"))
       (setq end-block (concat "[[/" type "]]"))
       (insert (concat start-block (make-string 2 seperator) end-block)))))
@@ -156,11 +153,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 	    (font-lock-add-keywords nil
 				    '(
 				      ;; Any text between [=this escape sequence=] on the same line. The "t" makes sure it overrides other keywords.
-				      ("\\[=.*=\\]" 0 'default t)
-				      )
-				    )
-	    )
-	  )
+				      ("\\[=.*=\\]" 0 'default t)))))
 
 ;; Add specific font face for headings (!, !!, and !!!)
 
@@ -201,8 +194,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 				      ("\\(\\([[:upper:]][a-z]+\\)+/\\)?\\([[:upper:]][a-z]+\\)\\{2,\\}" . 'trope-mode-link-face)
 
 				      ;; Internal Wikiword Link with {{Bracket}}
-				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}" . 'trope-mode-link-face)
-				      ))))
+				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}" . 'trope-mode-link-face)))))
 
 ;; Add specific font face for notes, quotes, and folders
 
@@ -218,9 +210,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 	    (font-lock-add-keywords nil
 				    '(
 				      ;; Notes, quoteblocks, folders
-				      ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|index\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base)
-
-				      ))))
+				      ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|index\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base)))))
 
 ;; Apply font faces for emphasis (''italic'', '''bold''', @@monospace@@)
 (add-hook 'trope-mode-hook
