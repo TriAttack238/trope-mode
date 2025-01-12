@@ -5,7 +5,7 @@
 ;; Version: 0.1.0
 ;; Created: 18 Dec 2024
 ;; Package-Requires: ((emacs "29.1"))
-;; Keywords: TV Tropes, trope
+;; Keywords: TV Tropes, trope, wp
 ;; URL: https://github.com/TriAttack238/trope-mode
 
 ;; This file is not a part of GNU Emacs
@@ -73,6 +73,7 @@
 ;; Emphasis
 (defun trope-mode-add-to-region (start end char repeat)
   "Insert CHAR on either side of the region defined by START and END.
+
 If REPEAT is greater than 1, add the character multiple times.
 Assumes that START is less than END."
   (save-excursion
@@ -92,6 +93,7 @@ Meant to be used interactively, or assuming that START is less than END."
 
 (defun trope-mode-monospace-region (start end)
   "Monospace the selected region.
+
 Meant to be used interactively, or assuming that START is less than END."
   (interactive "*r")
   (let ((char-to-add ?@)
@@ -100,6 +102,7 @@ Meant to be used interactively, or assuming that START is less than END."
 
 (defun trope-mode-bold-region (start end)
   "Bold the selected region.
+
 Meant to be used interactively, or assuming that START is less than END."
   (interactive "*r")
   (let ((char-to-add ?')
@@ -111,19 +114,19 @@ Meant to be used interactively, or assuming that START is less than END."
 (defun trope-mode-create-label (type name seperator)
   "Add boxed label construct in the current buffer.
 
-Meant as a helper function to create labels depending on the value of the string TYPE (note, folder, ect.).  If the string is not nil, add ':NAME' to the beginning label.  The SEPERATOR character is printed twice between the beginning and end."
+Meant as a helper function to create labels depending on the
+value of the string TYPE (note, folder, ect.).  If the string is
+not nil, add ':NAME' to the beginning label.  The SEPERATOR
+character is printed twice between the beginning and end."
   (save-excursion ;;Should the point stay at its original position?
     (let ((start-block)
 	  (name-inner)
-	  (end-block)
-	  
-	  )
+	  (end-block))
       (setq name-inner (when name
-			(concat ":" name)
-			))
+			(concat ":" name)))
       (setq start-block (concat "[[" type name-inner "]]"))
       (setq end-block (concat "[[/" type "]]"))
-      (insert (concat start-block (make-string 2 seperator) end-block)))))
+      (insert start-block (make-string 2 seperator) end-block))))
 
 (defun trope-mode-create-note ()
   "Create a beginning and end note block after the point seperated by 2 spaces."
@@ -137,6 +140,7 @@ Meant as a helper function to create labels depending on the value of the string
 
 (defun trope-mode-create-quoteblock ()
   "Create a beginning and end labelnote block after the point.
+
 Quote blocks only render on the TV Tropes forums, not the main wiki."
   (interactive "*")
   (trope-mode-create-label "quoteblock" nil ?\s))
@@ -147,22 +151,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   (trope-mode-create-label "folder" name ?\n))
 
 
-;;; Font Locking
-
-;; Apply deafult face for any text between escape characters
-
-(add-hook 'trope-mode-hook
-	  (lambda ()
-	    (font-lock-add-keywords nil
-				    '(
-				      ;; Any text between [=this escape sequence=] on the same line. The "t" makes sure it overrides other keywords.
-				      ("\\[=.*=\\]" 0 'default t)
-				      )
-				    )
-	    )
-	  )
-
-;; Add specific font face for headings (!, !!, and !!!)
+;; TODO: Add specific font face for headings (!, !!, and !!!)
 
 ;; Create custom faces for headings
 
@@ -170,14 +159,6 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   '((t :foreground "firebrick" :weight extra-bold))
   "Base face for headers."
   :group 'trope-mode)
-
-;; Add faces to regular expressions
-;; TODO: give each header level its own face at compile time
-
-(add-hook 'trope-mode-hook
-	  (lambda ()
-	    (font-lock-add-keywords nil
-				    '(("^!\\{1,3\\}.+$" . 'trope-mode-header-face-base)))))
 
 
 ;; Add specific font face for PotHoles and links
@@ -187,23 +168,6 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   "Face for Potholes and links."
   :group 'trope-mode)
 
-;;Add faces to regular expressions
-;;Note: The regular expression for CamelCase is "\\([[:upper:]][a-z]+\\)\\{2\\}"
-
-(add-hook 'trope-mode-hook
-	  (lambda ()
-	    (font-lock-add-keywords nil
-				    '(
-				      ;; Pothole and external link
-				      ("\\[\\{2\\}\\(\\([[:alpha:]]\\|/\\|{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}\\)+\\|http[s]?:.*\\) \\(?:[[:alpha:]]\\|[[:blank:]]\\)+\\]\\{2\\}" . 'trope-mode-link-face)
-
-				      ;; Internal Wikiword Link with CamelCase
-				      ("\\(\\([[:upper:]][a-z]+\\)+/\\)?\\([[:upper:]][a-z]+\\)\\{2,\\}" . 'trope-mode-link-face)
-
-				      ;; Internal Wikiword Link with {{Bracket}}
-				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}" . 'trope-mode-link-face)
-				      ))))
-
 ;; Add specific font face for notes, quotes, and folders
 
 (defface trope-mode-label-face-base
@@ -211,31 +175,37 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   "Base face for headers."
   :group 'trope-mode)
 
-;; Add faces to regular expressions
+;; Create default list
+(defconst trope-mode-font-lock-defaults
+  '((
+    ;; Any text between [=this escape sequence=] on the same line. The "t" makes sure it overrides other keywords.
+    ("\\[=.*=\\]" 0 'default t)
 
-(add-hook 'trope-mode-hook
-	  (lambda ()
-	    (font-lock-add-keywords nil
-				    '(
-				      ;; Notes, quoteblocks, folders
-				      ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|index\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base)
+    ;; Headers
+    ("^!\\{1,3\\}.+$" 0 'trope-mode-header-face-base)
 
-				      ))))
+    ;; Links
+    ;; Pothole and external link
+				      ("\\[\\{2\\}\\(\\([[:alpha:]]\\|/\\|{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}\\)+\\|http[s]?:.*\\) \\(?:[[:alpha:]]\\|[[:blank:]]\\)+\\]\\{2\\}" 0 'trope-mode-link-face)
 
-;; Apply font faces for emphasis (''italic'', '''bold''', @@monospace@@)
-(add-hook 'trope-mode-hook
-	  (lambda ()
-	    (font-lock-add-keywords nil
-				    '(
+    ;; Internal Wikiword Link with CamelCase
+    ("\\(\\([[:upper:]][a-z]+\\)+/\\)?\\([[:upper:]][a-z]+\\)\\{2,\\}" 0 'trope-mode-link-face)
 
-				      ;; @@monospace@@
-				      ("@\\{2\\}.*@\\{2\\}" 0 'fixed-pitch append)
+    ;; Internal Wikiword Link with {{Bracket}}
+    ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}" 0 'trope-mode-link-face)
 
-				      ;; ''Italic''
-				      ("\\b'\\{2\\}\\('''\\)?[^']*\\('''\\)?'\\{2\\}\\b" 0 'italic append)
+    ;; Notes, quoteblocks, folders
+    ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|index\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" 0 'trope-mode-label-face-base)
+
+    ;; Emphasis
+    ;; @@monospace@@
+    ("@\\{2\\}.*@\\{2\\}" 0 'fixed-pitch append)
+
+    ;; ''Italic''
+    ("\\b'\\{2\\}\\('''\\)?[^']*\\('''\\)?'\\{2\\}\\b" 0 'italic append)
 				      
-				      ;; '''Bold'''
-				      ("'\\{3\\}[^']*'\\{3\\}" 0 'bold append)))))
+    ;; '''Bold'''
+    ("'\\{3\\}[^']*'\\{3\\}" 0 'bold append))))
 
 ;;; Exposed Functionality
 
@@ -244,6 +214,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   text-mode "Trope Mode"
   "Major mode for the TV Tropes formatting language."
   (setq-local case-fold-search nil)
+  (setq font-lock-defaults trope-mode-font-lock-defaults)
   (font-lock-ensure)
   (use-local-map trope-mode-keymap)
   :syntax-table trope-mode-syntax-table)

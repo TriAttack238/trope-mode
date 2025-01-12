@@ -14,7 +14,7 @@ Start with a horizontal line
 
 * Bullet lists can start with asterisks
 + But can also use plus signs
-** Multiple of the same type leads to indendation. 
+** Multiple of the same type leads to indentation. 
 +++ Indentation beyond the third-level is against the rules
 
 This is ''italic'', this is '''bold''', and this is @@monospace@@. The size of text can also be [[--reduced--]]. However, [=EscapeSequence=] means the inside is not interpreted.
