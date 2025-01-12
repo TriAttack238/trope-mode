@@ -151,18 +151,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   (trope-mode-create-label "folder" name ?\n))
 
 
-;;; Font Locking
-
-;; Apply deafult face for any text between escape characters
-
-(add-hook 'trope-mode-hook
-	  (lambda ()
-	    (font-lock-add-keywords nil
-				    '(
-				      ;; Any text between [=this escape sequence=] on the same line. The "t" makes sure it overrides other keywords.
-				      ("\\[=.*=\\]" 0 'default t)))))
-
-;; Add specific font face for headings (!, !!, and !!!)
+;; TODO: Add specific font face for headings (!, !!, and !!!)
 
 ;; Create custom faces for headings
 
@@ -170,14 +159,6 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   '((t :foreground "firebrick" :weight extra-bold))
   "Base face for headers."
   :group 'trope-mode)
-
-;; Add faces to regular expressions
-;; TODO: give each header level its own face at compile time
-
-(add-hook 'trope-mode-hook
-	  (lambda ()
-	    (font-lock-add-keywords nil
-				    '(("^!\\{1,3\\}.+$" . 'trope-mode-header-face-base)))))
 
 
 ;; Add specific font face for PotHoles and links
@@ -187,22 +168,6 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   "Face for Potholes and links."
   :group 'trope-mode)
 
-;;Add faces to regular expressions
-;;Note: The regular expression for CamelCase is "\\([[:upper:]][a-z]+\\)\\{2\\}"
-
-(add-hook 'trope-mode-hook
-	  (lambda ()
-	    (font-lock-add-keywords nil
-				    '(
-				      ;; Pothole and external link
-				      ("\\[\\{2\\}\\(\\([[:alpha:]]\\|/\\|{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}\\)+\\|http[s]?:.*\\) \\(?:[[:alpha:]]\\|[[:blank:]]\\)+\\]\\{2\\}" . 'trope-mode-link-face)
-
-				      ;; Internal Wikiword Link with CamelCase
-				      ("\\(\\([[:upper:]][a-z]+\\)+/\\)?\\([[:upper:]][a-z]+\\)\\{2,\\}" . 'trope-mode-link-face)
-
-				      ;; Internal Wikiword Link with {{Bracket}}
-				      ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}" . 'trope-mode-link-face)))))
-
 ;; Add specific font face for notes, quotes, and folders
 
 (defface trope-mode-label-face-base
@@ -210,29 +175,37 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   "Base face for headers."
   :group 'trope-mode)
 
-;; Add faces to regular expressions
+;; Create default list
+(defconst trope-mode-font-lock-defaults
+  '((
+    ;; Any text between [=this escape sequence=] on the same line. The "t" makes sure it overrides other keywords.
+    ("\\[=.*=\\]" 0 'default t)
 
-(add-hook 'trope-mode-hook
-	  (lambda ()
-	    (font-lock-add-keywords nil
-				    '(
-				      ;; Notes, quoteblocks, folders
-				      ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|index\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" . 'trope-mode-label-face-base)))))
+    ;; Headers
+    ("^!\\{1,3\\}.+$" 0 'trope-mode-header-face-base)
 
-;; Apply font faces for emphasis (''italic'', '''bold''', @@monospace@@)
-(add-hook 'trope-mode-hook
-	  (lambda ()
-	    (font-lock-add-keywords nil
-				    '(
+    ;; Links
+    ;; Pothole and external link
+				      ("\\[\\{2\\}\\(\\([[:alpha:]]\\|/\\|{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}\\)+\\|http[s]?:.*\\) \\(?:[[:alpha:]]\\|[[:blank:]]\\)+\\]\\{2\\}" 0 'trope-mode-link-face)
 
-				      ;; @@monospace@@
-				      ("@\\{2\\}.*@\\{2\\}" 0 'fixed-pitch append)
+    ;; Internal Wikiword Link with CamelCase
+    ("\\(\\([[:upper:]][a-z]+\\)+/\\)?\\([[:upper:]][a-z]+\\)\\{2,\\}" 0 'trope-mode-link-face)
 
-				      ;; ''Italic''
-				      ("\\b'\\{2\\}\\('''\\)?[^']*\\('''\\)?'\\{2\\}\\b" 0 'italic append)
+    ;; Internal Wikiword Link with {{Bracket}}
+    ("\\([[:upper:]][a-z]+\\)?\\(/\\|\\.\\)?{\\{2\\}\\([[:alpha:]]+\\)?}\\{2\\}" 0 'trope-mode-link-face)
+
+    ;; Notes, quoteblocks, folders
+    ("\\[\\{2\\}\\/?\\(?:note\\|quoteblock\\|index\\|labelnote:?.*?\\|folder:?.*?\\)\\]\\{2\\}" 0 'trope-mode-label-face-base)
+
+    ;; Emphasis
+    ;; @@monospace@@
+    ("@\\{2\\}.*@\\{2\\}" 0 'fixed-pitch append)
+
+    ;; ''Italic''
+    ("\\b'\\{2\\}\\('''\\)?[^']*\\('''\\)?'\\{2\\}\\b" 0 'italic append)
 				      
-				      ;; '''Bold'''
-				      ("'\\{3\\}[^']*'\\{3\\}" 0 'bold append)))))
+    ;; '''Bold'''
+    ("'\\{3\\}[^']*'\\{3\\}" 0 'bold append))))
 
 ;;; Exposed Functionality
 
@@ -241,6 +214,7 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   text-mode "Trope Mode"
   "Major mode for the TV Tropes formatting language."
   (setq-local case-fold-search nil)
+  (setq font-lock-defaults trope-mode-font-lock-defaults)
   (font-lock-ensure)
   (use-local-map trope-mode-keymap)
   :syntax-table trope-mode-syntax-table)
