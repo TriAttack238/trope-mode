@@ -73,6 +73,7 @@
 ;; Emphasis
 (defun trope-mode-add-to-region (start end char repeat)
   "Insert CHAR on either side of the region defined by START and END.
+
 If REPEAT is greater than 1, add the character multiple times.
 Assumes that START is less than END."
   (save-excursion
@@ -92,6 +93,7 @@ Meant to be used interactively, or assuming that START is less than END."
 
 (defun trope-mode-monospace-region (start end)
   "Monospace the selected region.
+
 Meant to be used interactively, or assuming that START is less than END."
   (interactive "*r")
   (let ((char-to-add ?@)
@@ -100,6 +102,7 @@ Meant to be used interactively, or assuming that START is less than END."
 
 (defun trope-mode-bold-region (start end)
   "Bold the selected region.
+
 Meant to be used interactively, or assuming that START is less than END."
   (interactive "*r")
   (let ((char-to-add ?')
@@ -111,7 +114,10 @@ Meant to be used interactively, or assuming that START is less than END."
 (defun trope-mode-create-label (type name seperator)
   "Add boxed label construct in the current buffer.
 
-Meant as a helper function to create labels depending on the value of the string TYPE (note, folder, ect.).  If the string is not nil, add ':NAME' to the beginning label.  The SEPERATOR character is printed twice between the beginning and end."
+Meant as a helper function to create labels depending on the
+value of the string TYPE (note, folder, ect.).  If the string is
+not nil, add ':NAME' to the beginning label.  The SEPERATOR
+character is printed twice between the beginning and end."
   (save-excursion ;;Should the point stay at its original position?
     (let ((start-block)
 	  (name-inner)
@@ -120,7 +126,7 @@ Meant as a helper function to create labels depending on the value of the string
 			(concat ":" name)))
       (setq start-block (concat "[[" type name-inner "]]"))
       (setq end-block (concat "[[/" type "]]"))
-      (insert (concat start-block (make-string 2 seperator) end-block)))))
+      (insert start-block (make-string 2 seperator) end-block))))
 
 (defun trope-mode-create-note ()
   "Create a beginning and end note block after the point seperated by 2 spaces."
@@ -134,6 +140,7 @@ Meant as a helper function to create labels depending on the value of the string
 
 (defun trope-mode-create-quoteblock ()
   "Create a beginning and end labelnote block after the point.
+
 Quote blocks only render on the TV Tropes forums, not the main wiki."
   (interactive "*")
   (trope-mode-create-label "quoteblock" nil ?\s))
