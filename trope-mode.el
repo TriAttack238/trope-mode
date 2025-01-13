@@ -25,7 +25,9 @@
 
 ;;; Commentary:
 
-;; See the README.org file for details.
+;; A major mode for writing the unnamed markup language used for the
+;; website TV Tropes. Files should be marked with ".trp" or ".trope"
+;; extensions.
 
 ;;; Code:
 
@@ -33,8 +35,6 @@
 
 
 ;;; Configuration
-
-
 
 ;;; Constants
 
@@ -218,6 +218,9 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
   (font-lock-ensure)
   (use-local-map trope-mode-keymap)
   :syntax-table trope-mode-syntax-table)
+
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.\\(?:trp\\|trope\\)" . trope-mode))
 
 (provide 'trope-mode)
 

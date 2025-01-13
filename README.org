@@ -2,7 +2,7 @@
 
 A major mode for writing the unnamed markup language used for the
 website [[https://tvtropes.org/][TV Tropes]], which should be put in
-".trp" files. This package aims to be fast, use as little dependencies
+".trp" or ".trope" files. This package aims to be fast, use as little dependencies
 as possible, and to make it easier to write pages for the website, not
 to use as a standalone markup format.
 
@@ -17,9 +17,8 @@ add this code:
 
 #+BEGIN_SRC emacs-lisp
 
-  (add-to-list 'load-path "path/to/trope-mode")
-  (require 'trope-mode)
-  (add-to-list 'auto-mode-alist '("\\.\\(?:trp\\|trope\\)". trope-mode))
+    (add-to-list 'load-path "path/to/trope-mode")
+    (require 'trope-mode)
 
 #+END_SRC
 
