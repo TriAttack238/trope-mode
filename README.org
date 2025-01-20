@@ -1,3 +1,5 @@
+[[https://melpa.org/#/trope-mode][file:https://melpa.org/packages/trope-mode-badge.svg]]
+
 * Trope-Mode
 
 A major mode for writing the unnamed markup language used for the
@@ -10,10 +12,25 @@ to use as a standalone markup format.
 
 ** Installation
 
-Currently, this package is not in any centralized repository, although
-that is a goal for the project. To use this package, clone the project
-using git to a directory of your choice. Then, in your ~init.el~ file
-add this code:
+This package is now available in the MELPA repository. To
+access it, make sure to add MELPA to your package sources (some
+package managers such as elpaca have it by default). Then, use ~M-x
+package-install~ and then the package name or use the following
+declaration in your ~init.el~:
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package trope-mode :ensure t :defer t)
+
+#+END_SRC
+
+And the trope should be available on the next restart for properly
+named files or with ~M-x trope-mode~.
+
+If you do not want to install it using a package manager, you can also
+use the package by getting the source code directly. To use this
+package, clone the project using git to a directory of your
+choice. Then, in your ~init.el~ file add this code:
 
 #+BEGIN_SRC emacs-lisp
 
@@ -22,7 +39,8 @@ add this code:
 
 #+END_SRC
 
-The path should be to the project folder, not the file ~trope-mode.el~.
+The path should be to the project folder, not the file
+~trope-mode.el~.
 
 ** Functions
 
@@ -39,4 +57,8 @@ keybindings to speed up writing.
 | trope-mode-create-quoteblock | C-c ' q    | Create a quote block      |
 | trope-mode-create-labelnote  | C-c ' l    | Create a labelnote        |
 
+** Suggestions and Contributions
 
+This is a new project with many kinks to iron out, so opening issues
+and pull requests is welcomed. Please feel free to write communicate
+any issues in the user experience or any suggestions for improvements.
