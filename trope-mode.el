@@ -213,7 +213,6 @@ Quote blocks only render on the TV Tropes forums, not the main wiki."
 (define-derived-mode trope-mode
   text-mode "Trope Mode"
   "Major mode for the TV Tropes formatting language."
-  (setq-local case-fold-search nil)
   (setq font-lock-defaults trope-mode-font-lock-defaults)
   (font-lock-ensure)
   (use-local-map trope-mode-keymap)
