@@ -57,7 +57,7 @@ keybindings to speed up writing.
 | trope-mode-create-quoteblock | C-c ' q    | Create a quote block      |
 | trope-mode-create-labelnote  | C-c ' l    | Create a labelnote        |
 
-** Suggestion and Contributions
+** Suggestions and Contributions
 
 This is a new project with many kinks to iron out, so opening issues
 and pull requests is welcomed. Please feel free to write communicate
